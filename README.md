@@ -3,16 +3,16 @@
 
 ## users テーブル
 
-| Column             | Type   | Options     |
-| ------------------ | ------ | ----------- |
-| first_name         | string | null: false |
-| last_name          | string | null: false |
-| email              | string | null: false |
-| encrypted_password | string | null: false |
-| nickname           | string | null: false |
-| first_name_leading | string | null: false |
-| last_name_leading  | string | null: false |
-| birthday           | date   | null: false |
+| Column             | Type   | Options                   |
+| ------------------ | ------ | ------------------------- |
+| first_name         | string | null: false               |
+| last_name          | string | null: false               |
+| email              | string | null: false, unique: true |
+| encrypted_password | string | null: false               |
+| nickname           | string | null: false               |
+| first_name_leading | string | null: false               |
+| last_name_leading  | string | null: false               |
+| birthday           | date   | null: false               |
 
 ### Association
 
@@ -36,6 +36,7 @@
 
 ### Association
 
+- belongs_to :user
 - has_one  :order
 - has_many :comments
 
