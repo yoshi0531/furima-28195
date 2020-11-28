@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :items
   has_many :orders
   has_many :comments
+
   with_options presence: true do
     validates :first_name, format: { with: /\A[ぁ-んァ-ン一-龥]/, message: "is invalid. Input full-width characters."}
     validates :last_name, format: { with: /\A[ぁ-んァ-ン一-龥]/, message: "is invalid. Input full-width characters."}
