@@ -13,5 +13,11 @@ class Item < ApplicationRecord
     validates :prefecture_id
     validates :days_id
     validates :price
+
+    with_options :image, unless: :was_attached? do
+      def was_attached?
+        self.image.attached?
+      end
+    end
   end
 end
