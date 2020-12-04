@@ -21,7 +21,7 @@
         <p>
           クリックしてファイルをアップロード
         </p>
-        <%= f.file_field :hoge, id:"item-image" %>
+        <%= f.file_field :image, id:"item-image" if message.image.attached? %>
       </div>
     </div>
     <%# /出品画像 %>
