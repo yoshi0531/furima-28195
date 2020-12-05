@@ -3,6 +3,12 @@ class ItemsController < ApplicationController
   end
 
   def new
+    @item = Item.new
+  end
+
+  def create
+    @item = Item.create item_params
+    redirect_to @item
   end
 
   private
