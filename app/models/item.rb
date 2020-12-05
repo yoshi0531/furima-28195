@@ -4,16 +4,11 @@ class Item < ApplicationRecord
   has_many   :comments
   has_one_attached :image
 
-  validates :image, presence: true, unless: :was_attached?
-  
-  def was_attached?
-    self.image.attached?
-  end
-
   with_options presence: true do
     validates :name
     validates :text
     validates :price
+    validates :image
   end
 
   extend ActiveHash::Associations::ActiveRecordExtensions
