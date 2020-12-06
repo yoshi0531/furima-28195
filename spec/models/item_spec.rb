@@ -13,6 +13,11 @@ RSpec.describe Item, type: :model do
     end
 
     context '商品出品登録がうまくいかない時' do
+      it "imageが空だと登録できないこと" do
+        @item.image = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Image can't be blank")
+      end
       it "nameが空だと登録できないこと" do
         @item.name = ""
         @item.valid?
@@ -47,6 +52,11 @@ RSpec.describe Item, type: :model do
         @item.day_id = "1"
         @item.valid?
         expect(@item.errors.full_messages).to include("Day must be other than 1")
+      end
+      it "priceが空では登録できない" do
+        @item.price = ""
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price can't be blank")
       end
       it "priceが300未満だと登録できない" do
         @item.price = "299"
