@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   def index
     @item = Item.find(params[:item_id])
+    @buyer = Buyer.new
   end
 
   def create
@@ -17,6 +18,6 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.permit(:postal_code, :prefecture_id, :city , :house_number, :building_name, :phone_number).merge(item_id: params[:item_id], user_id: current_user.id)
+    params.require(:buyer).permit(:postal_code, :prefecture_id, :city , :house_number, :building_name, :phone_number).merge(item_id: params[:item_id], user_id: current_user.id)
   end
 end
