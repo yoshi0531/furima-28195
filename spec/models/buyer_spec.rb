@@ -6,72 +6,71 @@ RSpec.describe Buyer, type: :model do
   end
 
   describe '商品購入登録' do
-    context '商品出品登録がうまくいく時' do
+    context '商品購入登録がうまくいく時' do
       it "全ての値が正しく入力されていれば保存できること" do
-        expect(@item).to be_valid
+        expect(@buyer).to be_valid
+      end
+      it "building_nameが空でも保存できること" do
+        @buyer.building_name = ""
+        expect(@buyer).to be_valid
       end
     end
 
-    context '商品出品登録がうまくいかない時' do
-      it "imageが空だと登録できないこと" do
-        @item.image = nil
-        @item.valid?
-        expect(@item.errors.full_messages).to include("Image can't be blank")
+    context '商品購入登録がうまくいかない時' do
+      it "postal_codeが空だと登録できないこと" do
+        @buyer.postal_code = ""
+        @buyer.valid?
+        expect(@buyer.errors.full_messages).to include("Postal code can't be blank", "Postal code is invalid. Include hyphen(-)")
       end
-      it "nameが空だと登録できないこと" do
-        @item.name = ""
-        @item.valid?
-        expect(@item.errors.full_messages).to include("Name can't be blank")
+      it "postal_codeにハイフンがないと登録できないこと" do
+        @buyer.postal_code = "1234567"
+        @buyer.valid?
+        expect(@buyer.errors.full_messages).to include("Postal code is invalid. Include hyphen(-)")
       end
-      it "textが空では登録できない" do
-        @item.text = ""
-        @item.valid?
-        expect(@item.errors.full_messages).to include("Text can't be blank")
+      it "postal_codeは全角数字では登録できないこと" do
+        @buyer.postal_code = "３３３-３３３３"
+        @buyer.valid?
+        expect(@buyer.errors.full_messages).to include("Postal code is invalid. Include hyphen(-)")
       end
-      it "category_idが1だと登録できない" do
-        @item.category_id = 1
-        @item.valid?
-        expect(@item.errors.full_messages).to include("Category must be other than 1")
+      it "prefecture_idが1だと登録できないこと" do
+        @buyer.prefecture_id = 1
+        @buyer.valid?
+        expect(@buyer.errors.full_messages).to include("Prefecture can't be blank")
       end
-      it "status_idが1だと登録できない" do
-        @item.status_id = 1
-        @item.valid?
-        expect(@item.errors.full_messages).to include("Status must be other than 1")
+      it "cityが空だと登録できないこと" do
+        @buyer.city = ""
+        @buyer.valid?
+        expect(@buyer.errors.full_messages).to include("City can't be blank")
       end
-      it "cost_idが1だと登録できない" do
-        @item.cost_id = 1
-        @item.valid?
-        expect(@item.errors.full_messages).to include("Cost must be other than 1")
+      it "house_numberが空では登録できないこと" do
+        @buyer.house_number = ""
+        @buyer.valid?
+        expect(@buyer.errors.full_messages).to include("House number can't be blank")
       end
-      it "prefecture_idが1だと登録できない" do
-        @item.prefecture_id = 1
-        @item.valid?
-        expect(@item.errors.full_messages).to include("Prefecture must be other than 1")
+      it "phone_numberが空では登録できないこと" do
+        @buyer.phone_number = ""
+        @buyer.valid?
+        expect(@buyer.errors.full_messages).to include("Phone number can't be blank")
       end
-      it "day_idが1だと登録できない" do
-        @item.day_id = 1
-        @item.valid?
-        expect(@item.errors.full_messages).to include("Day must be other than 1")
+      it "phone_numberが10桁未満だと登録できないこと" do
+        @buyer.phone_number = "090111122"
+        @buyer.valid?
+        expect(@buyer.errors.full_messages).to include("Phone number is invalid. Include up to 11 digits numbers")
       end
-      it "priceが空では登録できない" do
-        @item.price = ""
-        @item.valid?
-        expect(@item.errors.full_messages).to include("Price can't be blank")
+      it "phone_numberが12桁以上だと登録できないこと" do
+        @buyer.phone_number = "090111122222"
+        @buyer.valid?
+        expect(@buyer.errors.full_messages).to include("Phone number is invalid. Include up to 11 digits numbers")
       end
-      it "priceが300未満だと登録できない" do
-        @item.price = 299
-        @item.valid?
-        expect(@item.errors.full_messages).to include("Price must be greater than 300")
+      it "phone_numberが0から始まる数字でないと登録できないこと" do
+        @buyer.phone_number = "19011112222"
+        @buyer.valid?
+        expect(@buyer.errors.full_messages).to include("Phone number is invalid. Include up to 11 digits numbers")
       end
-      it "priceが10,000,000以上だと登録できない" do
-        @item.price = 10000000
-        @item.valid?
-        expect(@item.errors.full_messages).to include("Price must be less than 10000000")
-      end
-      it "priceは全角数字では登録できない" do
-        @item.price = "３３３"
-        @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not a number")
+      it "phone_numberが全角数字だと登録できないこと" do
+        @buyer.phone_number = "０９０１１１１３３３３"
+        @buyer.valid?
+        expect(@buyer.errors.full_messages).to include("Phone number is invalid. Include up to 11 digits numbers")
       end
     end
   end
