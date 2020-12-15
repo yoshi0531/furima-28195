@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe Item, type: :model do
+RSpec.describe Buyer, type: :model do
   before do
-    @item = FactoryBot.build(:item)
+    @buyer = FactoryBot.build(:buyer)
   end
-  
-  describe '商品出品登録' do
+
+  describe '商品購入登録' do
     context '商品出品登録がうまくいく時' do
       it "全ての値が正しく入力されていれば保存できること" do
         expect(@item).to be_valid
