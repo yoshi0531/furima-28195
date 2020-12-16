@@ -72,6 +72,11 @@ RSpec.describe Buyer, type: :model do
         @buyer.valid?
         expect(@buyer.errors.full_messages).to include("Phone number is invalid. Include up to 11 digits numbers")
       end
+      it "tokenが空では登録できないこと" do
+        @buyer.token = nil
+        @buyer.valid?
+        expect(@buyer.errors.full_messages).to include("Token can't be blank")
+      end
     end
   end
 end
