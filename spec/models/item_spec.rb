@@ -43,11 +43,7 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Cost must be other than 1")
       end
-      it "prefecture_idが1だと登録できない" do
-        @item.prefecture_id = 1
-        @item.valid?
-        expect(@item.errors.full_messages).to include("Prefecture must be other than 1")
-      end
+      
       it "day_idが1だと登録できない" do
         @item.day_id = 1
         @item.valid?
@@ -66,7 +62,7 @@ RSpec.describe Item, type: :model do
       it "priceが10,000,000以上だと登録できない" do
         @item.price = 10000000
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price must be less than 9999999")
+        expect(@item.errors.full_messages).to include("Price must be less than 10000000")
       end
       it "priceは全角数字では登録できない" do
         @item.price = "３３３"
