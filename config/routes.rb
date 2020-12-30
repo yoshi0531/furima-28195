@@ -6,6 +6,6 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :new]
   resources :items do
     resources :orders, only: [:index, :create]
+    resources :messages, only: [:new, :create]
   end
-  resources :messages, only: [:create]
 end
