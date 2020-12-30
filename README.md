@@ -40,7 +40,7 @@
 - has_one    :order
 - has_many   :comments
 
-## comments テーブル
+## messages テーブル
 
 | Column | Type       | Options                        |
 | ------ | ---------- | ------------------------------ |
