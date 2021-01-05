@@ -7,7 +7,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
   
   private
-  
+
   def authorization
     sns_info = User.from_omniauth(request.env["omniauth.auth"])
     @user = sns_info[:user]
