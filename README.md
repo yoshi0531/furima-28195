@@ -18,7 +18,7 @@
 
 - has_many :items
 - has_many :orders
-- has_many :comments
+- has_many :messages
 
 ## items テーブル
 
@@ -38,7 +38,7 @@
 
 - belongs_to :user
 - has_one    :order
-- has_many   :comments
+- has_many   :messages
 
 ## messages テーブル
 
