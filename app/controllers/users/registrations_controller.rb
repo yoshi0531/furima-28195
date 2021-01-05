@@ -5,9 +5,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
-  # def new
-  #   super
-  # end
+  def new
+    super
+  end
 
   # POST /resource
   def create
@@ -16,7 +16,33 @@ class Users::RegistrationsController < Devise::RegistrationsController
       params[:user][:password] = pass
       params[:user][:password_confirmation] = pass
     end
-    super
+    @user = User.new(sign_up_params)
+    unless @user.valid?
+      render :new and return
+    end
+    session["devise.regist_data"] = {user: @user.attributes}
+    session["devise.regist_data"][:user]["password"] = params[:user][:password]
+    @birthday = @user.build_birthday
+    render :new_birthday
+  end
+
+  def create_birthday
+    @user = User.new(session["devise.regist_data"]["user"])
+    @birthday = Birthday.new(birthday_params)
+    unless @birthday.valid?
+      render :new_birthday and return
+    end
+    @user.build_birthday(@birthday.attributes)
+    @user.save
+    session["devise.regist_data"]["user"].clear
+    sign_in(:user, @user)
+    redirect_to root_path
+  end
+ 
+  private
+ 
+  def birthday_params
+    params.require(:birthday).permit(:birthday)
   end
 
   # GET /resource/edit

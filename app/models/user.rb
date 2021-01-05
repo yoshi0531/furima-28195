@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :items
   has_many :orders
+  has_one  :birthday
   has_many :sns_credentials
 
   def self.from_omniauth(auth)
@@ -28,7 +29,6 @@ class User < ApplicationRecord
 
   with_options presence: true do
     validates :nickname
-    validates :birthday
     validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i, message: "Include both letters and numbers"}
     
     with_options format: { with: /\A[ぁ-んァ-ン一-龥]+\z/, message: "is invalid. Input full-width characters."} do
