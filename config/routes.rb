@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root to: 'items#index'
   get 'messages/new'
   devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks',
@@ -8,7 +9,6 @@ Rails.application.routes.draw do
     get 'birthdays', to: 'users/registrations#new_birthday'
     post 'birthdays', to: 'users/registrations#create_birthday'
   end
-  root to: 'items#index'
   resources :users, only: [:index, :new]
   resources :items do
     resources :orders, only: [:index, :create]

@@ -7,29 +7,21 @@ class ItemsController < ApplicationController
   end
 
   def new
-    @item = Item.new
-    @item_tag = ItemsTag.new
+    @item = ItemsTag.new
   end
 
   def create
-    @item = Item.new(item_params)
+    @item = ItemsTag.new(item_params)
     if @item.valid?
       @item.save
       redirect_to root_path
     else
       render :new
     end
-
-    @item_tag = ItemsTag.new(tweet_tag_params)
-    if @item_tag.valid?
-      @item_tag.save
-      return redirect_to root_path
-    else
-      render "new"
-    end
   end
 
   def show
+    @tag = Tag.find(params[:id])
     @messages = Message.all
     @message = Message.new
   end
@@ -67,14 +59,10 @@ class ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:name, :text, :category_id, :status_id, :cost_id, :prefecture_id, :day_id, :price, :image).merge(user_id: current_user.id)
+    params.require(:items_tag).permit(:name, :text, :category_id, :status_id, :cost_id, :prefecture_id, :day_id, :price, :image, :tag_name).merge(user_id: current_user.id)
   end
 
   def set_item
     @item = Item.find(params[:id])
-  end
-
-  def item_tag_params
-    params.require(:items_tag).permit(:name)
   end
 end

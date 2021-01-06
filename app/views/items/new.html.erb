@@ -39,7 +39,11 @@
       </div>
     </div>
     <%# /商品名と商品説明 %>
-
+      <div class="weight-bold-text">
+        タグ
+        <span class="indispensable">必須</span>
+      </div>
+      <%= f.text_area :tag_name, class:"items-text", id:"tag-name", placeholder:"タグ（必須 40文字まで)", maxlength:"40" %>
     <%# 商品の詳細 %>
     <div class="items-detail">
       <div class="weight-bold-text">商品の詳細</div>
