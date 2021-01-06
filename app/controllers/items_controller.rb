@@ -8,6 +8,7 @@ class ItemsController < ApplicationController
 
   def new
     @item = Item.new
+    @item_tag = ItemsTag.new
   end
 
   def create
@@ -17,6 +18,14 @@ class ItemsController < ApplicationController
       redirect_to root_path
     else
       render :new
+    end
+
+    @item_tag = ItemsTag.new(tweet_tag_params)
+    if @item_tag.valid?
+      @item_tag.save
+      return redirect_to root_path
+    else
+      render "new"
     end
   end
 
@@ -48,6 +57,12 @@ class ItemsController < ApplicationController
       redirect_to root_path
     end
   end
+
+  def search
+    return nil if params[:keyword] == ""
+    tag = Tag.where(['name LIKE ?', "%#{params[:keyword]}%"] )
+    render json:{ keyword: tag }
+  end
   
   private
 
@@ -57,5 +72,9 @@ class ItemsController < ApplicationController
 
   def set_item
     @item = Item.find(params[:id])
+  end
+
+  def item_tag_params
+    params.require(:items_tag).permit(:name)
   end
 end
