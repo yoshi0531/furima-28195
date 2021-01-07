@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :set_tag, only: [:show]
+  before_action :search_product, only: [:index, :product_search]
 
   def index
     @items = Item.all.order("created_at DESC")
@@ -72,6 +73,10 @@ class ItemsController < ApplicationController
     # tag = ItemTagRelation.find_by(tag_id: item.id)
     # @item = tag.item
   end
+
+  def product_search
+    @results = @p.result.includes(:category_id)  # 検索条件にマッチした商品の情報を取得
+  end
   
   private
 
@@ -85,5 +90,9 @@ class ItemsController < ApplicationController
 
   def set_tag
     @tag = Tag.find(params[:id])
+  end
+
+  def search_product
+    @p = Item.ransack(params[:q])  # 検索オブジェクトを生成
   end
 end
