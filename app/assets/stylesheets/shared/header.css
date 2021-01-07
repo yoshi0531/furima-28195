@@ -31,6 +31,7 @@
   width: 100%;
   height: 5vh;
   padding-left: 10px;
+  display: flex;
 }
 
 .search-button {
@@ -101,4 +102,12 @@
 .sign-up {
   text-decoration: none;
   color: #333333;
+}
+
+.search-result {
+  width: 100%;
+  height: 5vh;
+  padding-left: 10px;
+  display: flex;
+  justify-content: center;
 }

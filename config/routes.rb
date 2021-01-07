@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :messages, only: [:new, :create]
     collection do
       get 'search'
+      get 'item_search'
     end
   end
 end

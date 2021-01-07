@@ -59,6 +59,18 @@ class ItemsController < ApplicationController
     end
     # tag = ItemTagRelation.find_by(tag_id: item.id)
     # @item = tag.item
+    render json:{ keyword: tags }
+  end
+
+  def item_search
+    return nil if params[:keyword] == ""
+    tags = Tag.where(['tag_name LIKE ?', "%#{params[:keyword]}%"])
+    @items = []
+    tags.each do |tag|
+      @items.push(*tag.items)
+    end
+    # tag = ItemTagRelation.find_by(tag_id: item.id)
+    # @item = tag.item
   end
   
   private
