@@ -1,8 +1,8 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show, :search, :item_search, :product_search]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :set_tag, only: [:show]
-  before_action :search_product, only: [:index, :product_search]
+  before_action :search_product, only: [:index, :product_search, :show]
 
   def index
     @items = Item.all.order("created_at DESC")
@@ -75,7 +75,7 @@ class ItemsController < ApplicationController
   end
 
   def product_search
-    @results = @p.result.includes(:category_id)  # 検索条件にマッチした商品の情報を取得
+    @items = @p.result  # 検索条件にマッチした商品の情報を取得
   end
   
   private

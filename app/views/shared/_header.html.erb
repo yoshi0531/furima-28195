@@ -16,10 +16,10 @@
     <ul class='lists-left'>
       <li>
         <%= search_form_for @p, url: items_product_search_path, class: "category-list" do |f| %>
-          <%= f.label :category_eq, 'カテゴリー' %>
-          <%= f.collection_select :category_id, Category.all, :id, :name, include_blank: '指定なし' %>
+          <%= f.label :category_id_eq, 'カテゴリー' %>
+          <%= f.collection_select :category_id_eq, Category.all, :id, :name, include_blank: '指定なし' %>
           <%= f.submit '検索' %>
-        <% end %>
+      <% end %>
       </li>
       <li><%= link_to 'ブランド', "#", class: "brand-list" %></li>
     </ul>
